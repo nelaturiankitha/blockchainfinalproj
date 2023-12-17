@@ -77,45 +77,34 @@ input:focus {
 
         const connectContract = async () => {
             const ABI = [
-                        {
-                          "constant": false,
-                          "inputs": [],
-                          "name": "Election",
-                          "outputs": [],
-                          "payable": false,
-                          "stateMutability": "nonpayable",
-                          "type": "function"
-                        },
-                        {
-                          "constant": true,
-                          "inputs": [],
-                          "name": "candidateName",
-                          "outputs": [
-                            {
-                              "name": "",
-                              "type": "string"
-                            }
-                          ],
-                          "payable": false,
-                          "stateMutability": "view",
-                          "type": "function"
-                        },
-                        {
-                          "constant": false,
-                          "inputs": [
-                            {
-                              "name": "_name",
-                              "type": "string"
-                            }
-                          ],
-                          "name": "setCandidate",
-                          "outputs": [],
-                          "payable": false,
-                          "stateMutability": "nonpayable",
-                          "type": "function"
-                        }
-                      ];
-            const Address = "0xf6d2f3CAf7830f71f50781a23A9b4ce38b0EAF4e";
+                  {
+                    "inputs": [],
+                    "name": "candidateName",
+                    "outputs": [
+                      {
+                        "internalType": "string",
+                        "name": "",
+                        "type": "string"
+                      }
+                    ],
+                    "stateMutability": "view",
+                    "type": "function"
+                  },
+                  {
+                    "inputs": [
+                      {
+                        "internalType": "string",
+                        "name": "_name",
+                        "type": "string"
+                      }
+                    ],
+                    "name": "setCandidate",
+                    "outputs": [],
+                    "stateMutability": "nonpayable",
+                    "type": "function"
+                  }
+                ];
+            const Address = "0x30972ebb898a3a70BdBC2995c63c677a0f18808B";
             window.web3 = await new Web3(window.ethereum);
             window.contract = await new window.web3.eth.Contract(ABI, Address);
             document.getElementById("contractArea").innerHTML = "Connection Status: Success";
