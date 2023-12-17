@@ -1,60 +1,126 @@
 <%- include partials/header.ejs %>
+
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Page 7</title>
-    <!-- Your stylesheets and head content -->
+    <title>SMART CONTRACT TEST</title>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.2.7-rc.0/web3.min.js"></script>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f2e8cf;
-            color: #386641;
-            text-align: center;
-            margin: 0;
-            padding: 20px;
-        }
+       body {
+    background-color: #f2e8cf; /* Warm beige background */
+    font-size: 33px;
+    color: #386641; /* Earthy green for text */
+    font-family: 'Arial', sans-serif; /* Added a more readable font */
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+}
 
-        h1 {
-            color: #6a994e;
-            margin-bottom: 0.5em;
-        }
+button {
+    background-color: #6a994e; /* Earthy green for buttons */
+    color: #f2e8cf; /* Beige text on buttons for contrast */
+    font-size: 33px;
+    font-family: 'Impact', sans-serif;
+    border: none; /* Remove default border */
+    padding: 10px 20px; /* Add some padding for better appearance */
+    cursor: pointer; /* Cursor change to indicate clickable */
+    border-radius: 5px; /* Slightly rounded corners */
+}
 
-        p {
-            font-size: 1.2em;
-            line-height: 1.5;
-        }
+button:hover {
+    background-color: #a7c957; /* Lighter green on hover */
+}
 
-        #randomNumber {
-            font-weight: bold;
-            color: #bc4749;
-        }
+input {
+    width: 40%;
+    height: 33px;
+    font-size: 30px;
+    color: #386641; /* Earthy green text in input */
+    background-color: #f2e8cf; /* Warm beige background in input */
+    border: 2px solid #6a994e; /* Earthy green border */
+    padding: 5px; /* Padding for better spacing inside input */
+    border-radius: 5px; /* Slightly rounded corners */
+}
 
-        .container {
-            max-width: 600px;
-            margin: auto;
-            padding: 20px;
-            background-color: white;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            border-radius: 10px;
-        }
+/* Adding a focus style for input for better user experience */
+input:focus {
+    outline: none;
+    border-color: #bc4749; /* Deep red border color on focus */
+    box-shadow: 0 0 5px #bc4749; /* Soft shadow to highlight focus */
+}
     </style>
 </head>
 <body>
-    <h1>Operation Successful</h1>
-    <p>Your transaction was completed successfully.</p>
-    <p>Random Number: <span id="randomNumber"></span></p>
+
+    <button onclick="connectMetamask()">CONNECT TO METAMASK</button> <br>
+	<p id="accountArea">Connection Status: NOT CONNECTED to Metamask </p>
+
+	<button onclick="connectContract()">CONNECT TO CONTRACT</button> <br>
+	<p id="contractArea">Connection Status: NOT CONNECTED to Smart Contract</p>
+
+	<button onclick="readWord()">GET DATA FROM CONTRACT</button> <br>
+	<p id="dataArea">Data Status: NO Data from Smart Contract </p>
+
+	<button onclick="changeWord()">Please enter your bill number</button> <br>
+    <input type="text" id="inputArea"> 
+
     <script>
-         const generateRandomNumber = () => {
-        const randomNumber = Math.floor(Math.random() * 1000000); // Generate a random number
-        console.log("Random Number:", randomNumber); // Log the random number to the console
-        return randomNumber;
-    }
-        // If you want to generate and display the random number on page7
-        window.onload = () => {
-            const randomNumber = generateRandomNumber(); // Call the function
-            document.getElementById('randomNumber').innerText = randomNumber;
+        let account;
+        const connectMetamask = async () => {
+            if(window.ethereum !== "undefined"){
+                const accounts = await ethereum.request({method: "eth_requestAccounts"});
+                account = accounts[0];
+                document.getElementById("accountArea").innerHTML = `Account is: ${account}`;
+            }
+
         }
+
+        const connectContract = async () => {
+            const ABI = [
+                  {
+                    "inputs": [],
+                    "name": "candidateName",
+                    "outputs": [
+                      {
+                        "internalType": "string",
+                        "name": "",
+                        "type": "string"
+                      }
+                    ],
+                    "stateMutability": "view",
+                    "type": "function"
+                  },
+                  {
+                    "inputs": [
+                      {
+                        "internalType": "string",
+                        "name": "_name",
+                        "type": "string"
+                      }
+                    ],
+                    "name": "setCandidate",
+                    "outputs": [],
+                    "stateMutability": "nonpayable",
+                    "type": "function"
+                  }
+                ];
+            const Address = "0x30972ebb898a3a70BdBC2995c63c677a0f18808B";
+            window.web3 = await new Web3(window.ethereum);
+            window.contract = await new window.web3.eth.Contract(ABI, Address);
+            document.getElementById("contractArea").innerHTML = "Connection Status: Success";
+        }
+
+        // const readWord = async () => {
+        //     const data = await window.contract.methods.getFlower().call();
+        //     document.getElementById("dataArea").innerHTML = `Word is: ${data}`;
+        // }
+
+        const changeWord = async () => {
+            const myEntry = document.getElementById("inputArea").value;
+            await window.contract.methods.setCandidate(myEntry).send({ from: account });
+            window.location.href = '/page7';
+        }
+        
     </script>
-    <!-- Other content and scripts -->
 </body>
 </html>
