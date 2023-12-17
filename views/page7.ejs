@@ -1,0 +1,60 @@
+<%- include partials/header.ejs %>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Page 7</title>
+    <!-- Your stylesheets and head content -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f2e8cf;
+            color: #386641;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #6a994e;
+            margin-bottom: 0.5em;
+        }
+
+        p {
+            font-size: 1.2em;
+            line-height: 1.5;
+        }
+
+        #randomNumber {
+            font-weight: bold;
+            color: #bc4749;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Operation Successful</h1>
+    <p>Your transaction was completed successfully.</p>
+    <p>Random Number: <span id="randomNumber"></span></p>
+    <script>
+         const generateRandomNumber = () => {
+        const randomNumber = Math.floor(Math.random() * 1000000); // Generate a random number
+        console.log("Random Number:", randomNumber); // Log the random number to the console
+        return randomNumber;
+    }
+        // If you want to generate and display the random number on page7
+        window.onload = () => {
+            const randomNumber = generateRandomNumber(); // Call the function
+            document.getElementById('randomNumber').innerText = randomNumber;
+        }
+    </script>
+    <!-- Other content and scripts -->
+</body>
+</html>

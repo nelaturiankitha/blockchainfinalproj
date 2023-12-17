@@ -37,5 +37,10 @@ router.get('/page6', function(req, res, next) {
 });
 
 
+router.get('/page7', function(req, res, next) {
+  res.render('page7', { title: 'Welcome to Web3 BootStrap App', name:null });
+});
+
+
 
 module.exports = router;

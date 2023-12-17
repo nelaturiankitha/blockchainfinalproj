@@ -1,1 +1,137 @@
 <%- include partials/header.ejs %>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SMART CONTRACT TEST</title>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.2.7-rc.0/web3.min.js"></script>
+    <style>
+       body {
+    background-color: #f2e8cf; /* Warm beige background */
+    font-size: 33px;
+    color: #386641; /* Earthy green for text */
+    font-family: 'Arial', sans-serif; /* Added a more readable font */
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+}
+
+button {
+    background-color: #6a994e; /* Earthy green for buttons */
+    color: #f2e8cf; /* Beige text on buttons for contrast */
+    font-size: 33px;
+    font-family: 'Impact', sans-serif;
+    border: none; /* Remove default border */
+    padding: 10px 20px; /* Add some padding for better appearance */
+    cursor: pointer; /* Cursor change to indicate clickable */
+    border-radius: 5px; /* Slightly rounded corners */
+}
+
+button:hover {
+    background-color: #a7c957; /* Lighter green on hover */
+}
+
+input {
+    width: 40%;
+    height: 33px;
+    font-size: 30px;
+    color: #386641; /* Earthy green text in input */
+    background-color: #f2e8cf; /* Warm beige background in input */
+    border: 2px solid #6a994e; /* Earthy green border */
+    padding: 5px; /* Padding for better spacing inside input */
+    border-radius: 5px; /* Slightly rounded corners */
+}
+
+/* Adding a focus style for input for better user experience */
+input:focus {
+    outline: none;
+    border-color: #bc4749; /* Deep red border color on focus */
+    box-shadow: 0 0 5px #bc4749; /* Soft shadow to highlight focus */
+}
+    </style>
+</head>
+<body>
+
+    <button onclick="connectMetamask()">CONNECT TO METAMASK</button> <br>
+	<p id="accountArea">Connection Status: NOT CONNECTED to Metamask </p>
+
+	<button onclick="connectContract()">CONNECT TO CONTRACT</button> <br>
+	<p id="contractArea">Connection Status: NOT CONNECTED to Smart Contract</p>
+
+	<button onclick="readWord()">GET DATA FROM CONTRACT</button> <br>
+	<p id="dataArea">Data Status: NO Data from Smart Contract </p>
+
+	<button onclick="changeWord()">Please enter your bill number</button> <br>
+    <input type="text" id="inputArea"> 
+
+    <script>
+        let account;
+        const connectMetamask = async () => {
+            if(window.ethereum !== "undefined"){
+                const accounts = await ethereum.request({method: "eth_requestAccounts"});
+                account = accounts[0];
+                document.getElementById("accountArea").innerHTML = `Account is: ${account}`;
+            }
+
+        }
+
+        const connectContract = async () => {
+            const ABI = [
+                        {
+                          "constant": false,
+                          "inputs": [],
+                          "name": "Election",
+                          "outputs": [],
+                          "payable": false,
+                          "stateMutability": "nonpayable",
+                          "type": "function"
+                        },
+                        {
+                          "constant": true,
+                          "inputs": [],
+                          "name": "candidateName",
+                          "outputs": [
+                            {
+                              "name": "",
+                              "type": "string"
+                            }
+                          ],
+                          "payable": false,
+                          "stateMutability": "view",
+                          "type": "function"
+                        },
+                        {
+                          "constant": false,
+                          "inputs": [
+                            {
+                              "name": "_name",
+                              "type": "string"
+                            }
+                          ],
+                          "name": "setCandidate",
+                          "outputs": [],
+                          "payable": false,
+                          "stateMutability": "nonpayable",
+                          "type": "function"
+                        }
+                      ];
+            const Address = "0xf6d2f3CAf7830f71f50781a23A9b4ce38b0EAF4e";
+            window.web3 = await new Web3(window.ethereum);
+            window.contract = await new window.web3.eth.Contract(ABI, Address);
+            document.getElementById("contractArea").innerHTML = "Connection Status: Success";
+        }
+
+        // const readWord = async () => {
+        //     const data = await window.contract.methods.getFlower().call();
+        //     document.getElementById("dataArea").innerHTML = `Word is: ${data}`;
+        // }
+
+        const changeWord = async () => {
+            const myEntry = document.getElementById("inputArea").value;
+            await window.contract.methods.setCandidate(myEntry).send({ from: account });
+            window.location.href = '/page7';
+        }
+        
+    </script>
+</body>
+</html>
