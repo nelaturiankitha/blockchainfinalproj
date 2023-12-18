@@ -6,63 +6,83 @@
     <title>SMART CONTRACT TEST</title>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.2.7-rc.0/web3.min.js"></script>
     <style>
-       body {
-    background-color: #f2e8cf; /* Warm beige background */
-    font-size: 33px;
-    color: #386641; /* Earthy green for text */
-    font-family: 'Arial', sans-serif; /* Added a more readable font */
-    text-align: center;
-    margin: 0;
-    padding: 20px;
-}
+                    body {
+                    background-color: #F7D6E0; /* Pastel Lavender background */
+                    font-size: 20px;
+                    color: #333333; /* Dark grey for text */
+                    font-family: 'Arial', sans-serif;
+                    text-align: center;
+                    margin: 0;
+                    padding: 0;
+                }
+                    
+                .buttons-container {
+                    display: flex;
+                    justify-content: center;
+                    padding: 20px;
+                }
 
-button {
-    background-color: #6a994e; /* Earthy green for buttons */
-    color: #f2e8cf; /* Beige text on buttons for contrast */
-    font-size: 33px;
-    font-family: 'Impact', sans-serif;
-    border: none; /* Remove default border */
-    padding: 10px 20px; /* Add some padding for better appearance */
-    cursor: pointer; /* Cursor change to indicate clickable */
-    border-radius: 5px; /* Slightly rounded corners */
-}
+                button {
+                    background-color: #FAD2E1; /* Pastel Pink for buttons */
+                    color: #333333; /* Dark grey text on buttons */
+                    font-size: 18px;
+                    font-family: 'Arial', sans-serif;
+                    border: none;
+                    padding: 10px 20px;
+                    cursor: pointer;
+                    border-radius: 5px;
+                    margin: 0 10px; /* Space between buttons */
+                    transition: background-color 0.3s; /* Smooth transition for hover effect */
+                }
 
-button:hover {
-    background-color: #a7c957; /* Lighter green on hover */
-}
+                button:nth-child(1) { background-color: #E2F0CB; } /* Pastel Green for first button */
+                button:nth-child(2) { background-color: #FAD2E1; } /* Pastel Pink for second button */
+                button:nth-child(3) { background-color: #F9E2AE; } /* Pastel Yellow for third button */
 
-input {
-    width: 40%;
-    height: 33px;
-    font-size: 30px;
-    color: #386641; /* Earthy green text in input */
-    background-color: #f2e8cf; /* Warm beige background in input */
-    border: 2px solid #6a994e; /* Earthy green border */
-    padding: 5px; /* Padding for better spacing inside input */
-    border-radius: 5px; /* Slightly rounded corners */
-}
+                button:hover {
+                    opacity: 0.9; /* Slight transparency on hover */
+                }
 
-/* Adding a focus style for input for better user experience */
-input:focus {
-    outline: none;
-    border-color: #bc4749; /* Deep red border color on focus */
-    box-shadow: 0 0 5px #bc4749; /* Soft shadow to highlight focus */
-}
+                input {
+                    width: 40%;
+                    height: 30px;
+                    font-size: 18px;
+                    color: #333333; /* Dark grey text in input */
+                    background-color: #F7D6E0; /* Pastel Lavender background for input */
+                    border: 2px solid #C5DEDD; /* Pastel Blue border */
+                    padding: 5px;
+                    border-radius: 5px;
+                }
+
+                input:focus {
+                    outline: none;
+                    border-color: #FAD2E1; /* Pastel Pink border color on focus */
+                    box-shadow: 0 0 5px #FAD2E1; /* Soft shadow to highlight focus */
+                }
+
     </style>
 </head>
 <body>
+    
+    <div class="jumbotron" style="background: url('https://i.pinimg.com/originals/99/00/8b/99008b82e916278f56da2162dea1cb7d.jpg') no-repeat center center; background-size: cover; height: 350px; /* Increased height */ display: flex; align-items: center; justify-content: center;">
+      </div>
+      
 
-    <button onclick="connectMetamask()">CONNECT TO METAMASK</button> <br>
-	<p id="accountArea">Connection Status: NOT CONNECTED to Metamask </p>
-
-	<button onclick="connectContract()">CONNECT TO CONTRACT</button> <br>
-	<p id="contractArea">Connection Status: NOT CONNECTED to Smart Contract</p>
-
-	<button onclick="readWord()">GET DATA FROM CONTRACT</button> <br>
-	<p id="dataArea">Data Status: NO Data from Smart Contract </p>
-
-	<button onclick="changeWord()">Please enter your bill number</button> <br>
-    <input type="text" id="inputArea"> 
+    <div class="buttons-container">
+        <button onclick="connectMetamask()">Connect to Metamask</button>
+        <p id="accountArea">Connection Status: Not Connected to Metamask</p>
+    </div>
+    
+    <div class="buttons-container">
+        <button onclick="connectContract()">Connect to Contract</button>
+        <p id="contractArea">Connection Status: Not Connected to Smart Contract</p>
+    </div>
+    
+    <div class="buttons-container">
+        <button onclick="changeWord()">Enter Your Bill Number and confirm</button>
+        <input type="text" id="inputArea">
+    </div>
+    
 
     <script>
         let account;

@@ -1,52 +1,90 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <title><%= title %></title>
-
     <link rel='stylesheet' href='/stylesheets/otherstyle.css' />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #FFE4E1; /* Light pink background, similar to the design */
+            color: #333; /* Standard text color */
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar-custom {
+            background-color: #FFC0CB; /* Light pink, taken from the image's palette */
+            border-bottom: none; /* No border needed as per the design */
+        }
+
+        .navbar-custom .navbar-brand,
+        .navbar-custom .nav-link {
+            color: #555; /* Darker text color for contrast */
+            font-weight: bold; /* Making the text bold as per the design */
+        }
+
+        .navbar-custom .nav-link:hover,
+        .navbar-custom .nav-item.active .nav-link {
+            color: #333; /* Dark text color on hover for better visibility */
+            background-color: transparent; /* Clear background on hover */
+        }
+
+        .navbar-toggler {
+            border-color: #f8d7da; /* Soft color for the toggler border */
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml;charset=UTF8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%23555' stroke-width='2' stroke-linecap='round' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+            /* Color of the toggler icon is adjusted to match the text color */
+        }
+
+        /* If there are any buttons or other specific elements in the body,
+           their styles should be added here. Based on the image, it seems
+           there might be rounded buttons with a bold text, so you can add: */
+
+        .button {
+            background-color: #f8d7da; /* Soft pink background for buttons */
+            border: none; /* No border for buttons */
+            color: #555; /* Text color for buttons */
+            padding: 10px 20px; /* Padding for buttons */
+            text-transform: uppercase; /* Uppercase text for buttons */
+            border-radius: 20px; /* Rounded borders for buttons */
+            font-weight: bold; /* Bold text for buttons */
+            transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+        }
+
+        .button:hover {
+            background-color: #fabebe; /* Slightly darker color on hover */
+        }
+    </style>
+
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <style>
-      .navbar-custom {
-          background-color: #bc4749; 
-        }
-    </style>
-  </head>
-  <body>    
+</head>
+<body>    
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
-      <a class="navbar-brand" href="#"><%= title %></a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          
-          <li class="nav-item active">
-            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <!-- <li class="nav-item">
-            <a class="nav-link" href="/page1">Page 1</a>
-          </li> -->
-          <!-- <li class="nav-item">
-            <a class="nav-link" href="/page2"> Connect to Your Wallet</a>
-          </li>
+        <a class="navbar-brand" href="#"><%= title %></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-          <li class="nav-item">
-            <a class="nav-link" href="/page3"> Contact Us </a>
-          </li> -->
-
-          <li class="nav-item">
-            <a class="nav-link" href="/page5"> Prize catalog </a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link" href="/page6"> Redeem your ponits here </a>
-          </li>
-
-
-        </ul>
-      </div>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/page5">Prize Catalog</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/page6">Redeem Your Points Here</a>
+                </li>
+            </ul>
+        </div>
     </nav>
+</body>
+</html>
+

@@ -5,47 +5,51 @@
     <title>Page 7</title>
     <!-- Your stylesheets and head content -->
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f2e8cf;
-            color: #386641;
-            text-align: center;
-            margin: 0;
-            padding: 20px;
-        }
+       body {
+    font-family: 'Arial', sans-serif;
+    background-color: #FFE4E1; /* Soft pastel pink background */
+    color: #40514E; /* Elegant dark teal text */
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+}
 
-        h1 {
-            color: #6a994e;
-            margin-bottom: 0.5em;
-        }
+h1 {
+    color: #E1A692; /* Pastel coral for headings */
+    margin-bottom: 0.5em;
+}
 
-        p {
-            font-size: 1.2em;
-            line-height: 1.5;
-        }
+p {
+    font-size: 1.2em;
+    line-height: 1.5;
+    color: #5C5C5C; /* Soft grey for paragraph text */
+}
 
-        #randomNumber {
-            font-weight: bold;
-            color: #bc4749;
-        }
+#randomNumber {
+    font-weight: bold;
+    color: #9E768F; /* Muted pastel purple for emphasis */
+}
 
-        .container {
-            max-width: 600px;
-            margin: auto;
-            padding: 20px;
-            background-color: white;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            border-radius: 10px;
-        }
+.container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    background-color: #FAF0E6; /* Off-white, slightly tinted background for the container */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Slightly deeper shadow for a subtle 3D effect */
+    border-radius: 10px;
+}
+
     </style>
 </head>
 <body>
+    <div class="jumbotron" style="background: url('https://i.pinimg.com/564x/20/c3/cc/20c3cc5759a18d185d80d51cc94ad2e7.jpg') no-repeat center center; background-size: cover; height: 350px; /* Increased height */ display: flex; align-items: center; justify-content: center;">
+    </div>
     <h1>Operation Successful</h1>
     <p>Your transaction was completed successfully.</p>
-    <p>Random Number: <span id="randomNumber"></span></p>
+    <p>Christmas extra points €: <span id="randomNumber"></span></p>
     <script>
          const generateRandomNumber = () => {
-        const randomNumber = Math.floor(Math.random() * 1000000); // Generate a random number
+        const randomNumber = Math.floor(Math.random() * 1000); // Generate a random number
         console.log("Random Number:", randomNumber); // Log the random number to the console
         return randomNumber;
     }
@@ -58,3 +62,4 @@
     <!-- Other content and scripts -->
 </body>
 </html>
+

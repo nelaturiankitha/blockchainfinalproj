@@ -1,15 +1,79 @@
 <%- include partials/header.ejs %>
 
-<div class="jumbotron">
-  <h1 class="display-4">BootStrap Enabled App</h1>
-  <p class="lead">This is our app</p>
-  <hr class="my-4">
-  <p></p>
-  <p class="lead">
-    <a class="btn btn-success btn-lg" href="https://dappradar.com/" role="button">Learn more</a>
-  </p>
+<div class="jumbotron" style="background: url('https://i.pinimg.com/originals/73/39/e6/7339e6e07ad68a141b3a23237a393e6f.png') no-repeat center center; background-size: cover; height: 330px; /* Increased height */ display: flex; align-items: center; justify-content: center;">
+  <p class="lead">Welcome</p>
 </div>
 
+<style>
+  body {
+      font-family: 'Arial', sans-serif;
+      background-color: #FFE4E1; /* Soft pastel pink background */
+      color: #40514E; /* Elegant dark teal text */
+      text-align: center;
+      margin: 0;
+      padding: 20px;
+  }
+
+  .container {
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #FAF0E6; /* Off-white, slightly tinted background */
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      border-radius: 10px;
+  }
+
+  .card {
+      background-color: #FFF0F5; /* Light pastel purple background */
+      border-radius: 10px;
+      margin-bottom: 20px;
+  }
+
+  .card-header,
+  .card-title {
+      background-color: #F9E2AE; /* Pastel yellow background */
+      color: #40514E; /* Text color */
+      padding: 10px;
+      border-radius: 10px 10px 0 0;
+  }
+
+  .card-body {
+      padding: 20px;
+      color: #40514E; /* Text color */
+  }
+
+  .form-group {
+      margin-bottom: 1em;
+  }
+
+  .form-control {
+      border: 2px solid #E2F0CB; /* Pastel green border */
+      border-radius: 5px;
+      padding: 10px;
+      font-size: 1em;
+      color: #40514E;
+  }
+
+  .btn-success {
+      background-color: #E2F0CB; /* Pastel green background */
+      border-color: #E2F0CB; /* Pastel green border */
+      color: #40514E; /* Text color */
+      padding: 10px 20px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+      font-weight: bold;
+      text-transform: uppercase;
+  }
+
+  .btn-success:hover {
+      background-color: #BFDCAE; /* A darker shade of pastel green */
+      border-color: #BFDCAE;
+  }
+
+  label {
+      color: #40514E; /* Text color */
+  }
+</style>
 <% if(name) { %>
   <div class="container">
     <div class="card">
@@ -18,7 +82,7 @@
       </div>
       <div class="card-body">
         <h5 class="card-title">Hi there <%= name %> thanks for joining us today! </h5>
-        <h5 class="card-title">What would you like to purchase today?</h5>
+        <h5 class="card-title">Was your food amazing today?</h5>
       </div>
     </div>
 </div>
