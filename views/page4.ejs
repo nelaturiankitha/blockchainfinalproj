@@ -1,38 +1,116 @@
 <%- include partials/header.ejs %>
-
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.14.1/css/ol.css" type="text/css">
-    <style>
-      .map {
-        height: 600px;
-        width: 100%;
-      }
-    </style>
-    <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.14.1/build/ol.js"></script>
-    <title>OpenLayers example</title>
-  </head>
-  <body>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.14.1/css/ol.css" type="text/css">
+  <style>
+    .map {
+      height: 250px;
+      width: 100%;
+      margin: 0 auto;
+    }
+    .content {
+      max-width: 600px;
+      margin: 25px auto 0; /* Add top margin of 50px */
+      text-align: center;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.14.1/build/ol.js"></script>
+  <title>OpenLayers example</title>
+</head>
+<body>
+  <div class="content">
     <h2>Come Find Us</h2>
     <div id="map" class="map"></div>
-    <script type="text/javascript">
-      var map = new ol.Map({
-        target: 'map',
-        layers: [
-          new ol.layer.Tile({
-            source: new ol.source.OSM()
-          })
-        ],
-        view: new ol.View({
-          center: ol.proj.fromLonLat([37.41, 8.82]),
-          zoom: 4
-        })
-      });
-    </script>
-  </body>
-</html>
+    <label for="location">Your Location:</label>
+    <input type="text" id="location" placeholder="Enter your location">
+    <br>
+    <label for="mcdonald">Nearest McDonald's:</label>
+    <input type="text" id="mcdonald" placeholder="Enter nearest McDonald's">
+    <br>
+    <button onclick="calculateDistance()">Calculate Distance</button>
+    <p id="yourCoords"></p>
+    <p id="mcCoords"></p>
+    <p id="distance"></p>
+  </div>
 
+  <script type="text/javascript">
+    var map = new ol.Map({
+      target: 'map',
+      layers: [
+        new ol.layer.Tile({
+          source: new ol.source.OSM()
+        })
+      ],
+      view: new ol.View({
+        center: ol.proj.fromLonLat([37.41, 8.82]),
+        zoom: 4
+      })
+    });
+
+    function calculateDistance() {
+      const yourLocation = document.getElementById('location').value;
+      const nearestMcDonald = document.getElementById('mcdonald').value;
+
+      // Convert locations to coordinates
+      const coordsPromises = [
+        fetch('http://evntz-node-api-ra-ie.ap-south-1.elasticbeanstalk.com/location/coordinates', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ to: 'coordinates', name: yourLocation })
+        }).then(response => response.json()),
+        fetch('http://evntz-node-api-ra-ie.ap-south-1.elasticbeanstalk.com/location/coordinates', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ to: 'coordinates', name: nearestMcDonald })
+        }).then(response => response.json())
+      ];
+
+      Promise.all(coordsPromises)
+        .then(([yourCoords, mcCoords]) => {
+          const input1 = {
+            latitude: yourCoords.latitude,
+            longitude: yourCoords.longitude
+          };
+          const input2 = {
+            latitude: mcCoords.latitude,
+            longitude: mcCoords.longitude
+          };
+          
+          console.error("there");
+          // Display coordinates
+          document.getElementById('yourCoords').textContent = `Your Location Coordinates: Latitude: ${yourCoords.latitude}, Longitude: ${yourCoords.longitude}`;
+          document.getElementById('mcCoords').textContent = `McDonald's Location Coordinates: Latitude: ${mcCoords.latitude}, Longitude: ${mcCoords.longitude}`;
+
+          // Calculate distance using the Lambda function
+          fetch('https://1e17ii1a33.execute-api.eu-west-1.amazonaws.com/Beta/try1', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ input1, input2 })
+          })
+          .then(response => response.json())
+          .then(data => {
+            document.getElementById('distance').textContent = `Distance: ${data.distance} km`;
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+
+
+    }
+  </script>
+</body>
+</html>
 
 <%- include partials/footer.ejs %>
