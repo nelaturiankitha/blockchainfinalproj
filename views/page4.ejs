@@ -91,6 +91,7 @@
           fetch('https://1e17ii1a33.execute-api.eu-west-1.amazonaws.com/Beta/try1', {
             method: 'POST',
             headers: {
+              'Access-Control-Allow-Origin':'http://blockchainfinalproj.eba-kasuwkdx.eu-west-1.elasticbeanstalk.com',
               'Content-Type': 'application/json'
             },
             body: JSON.stringify({ input1, input2 })
