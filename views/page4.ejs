@@ -101,9 +101,6 @@
           .then(data => {
             document.getElementById('distance').textContent = `Distance: ${data.distance} km`;
           })
-          .catch(error => {
-            console.error('Error:', error);
-          });
         })
         .catch(error => {
           console.error('Error:', error);
