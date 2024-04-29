@@ -81,32 +81,68 @@
             latitude: mcCoords.latitude,
             longitude: mcCoords.longitude
           };
-          
+
           console.error("there");
           // Display coordinates
           document.getElementById('yourCoords').textContent = `Your Location Coordinates: Latitude: ${yourCoords.latitude}, Longitude: ${yourCoords.longitude}`;
           document.getElementById('mcCoords').textContent = `McDonald's Location Coordinates: Latitude: ${mcCoords.latitude}, Longitude: ${mcCoords.longitude}`;
 
-          // Calculate distance using the Lambda function
-          fetch('https://1e17ii1a33.execute-api.eu-west-1.amazonaws.com/Beta/try1', {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: {
-              'Access-Control-Allow-Origin':'http://blockchainfinalproj.eba-kasuwkdx.eu-west-1.elasticbeanstalk.com',
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ input1, input2 })
-          })
-          .then(response => response.json())
-          .then(data => {
-            document.getElementById('distance').textContent = `Distance: ${data.distance} km`;
-          })
-        })
-        .catch(error => {
-          console.error('Error:', error);
-        });
 
+          const url = 'https://1e17ii1a33.execute-api.eu-west-1.amazonaws.com/Beta/try1';
+const encodedUrl = encodeURIComponent(url);
+const requestBody = JSON.stringify({
+  input1: { latitude: yourCoords.latitude, longitude: yourCoords.longitude },
+  input2: { latitude: mcCoords.latitude, longitude: mcCoords.longitude }
+});
 
+const callbackName = 'handleResponse';
+
+const script = document.createElement('script');
+script.src = `https://api.allorigins.win/get?callback=${callbackName}&url=${encodedUrl}&method=POST&headers=&body=${encodeURIComponent(requestBody)}`;
+document.body.appendChild(script);
+
+window[callbackName] = function(data) {
+  if (data.status.http_code === 200) {
+    const responseData = JSON.parse(data.contents);
+    console.log(responseData);
+
+    const distanceElement = document.getElementById('distance');
+    if (distanceElement) {
+      distanceElement.textContent = `Distance: ${responseData.distance} km`;
+    } else {
+      console.error('Element with ID "distance" not found');
+    }
+  } else {
+    console.error('Error:', data.status.description);
+  }
+
+  // Clean up the script element
+  document.body.removeChild(script);
+  delete window[callbackName];
+};
+ const distance = calculateDistanceBetweenCoordinates(input1, input2);
+ document.getElementById('distance').textContent = `Distance: ${distance.toFixed(2)} km`;
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+    }
+
+    function calculateDistanceBetweenCoordinates(coord1, coord2) {
+      const R = 6371; // Radius of the Earth in km
+      const dLat = deg2rad(coord2.latitude - coord1.latitude);
+      const dLon = deg2rad(coord2.longitude - coord1.longitude);
+      const a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(deg2rad(coord1.latitude)) * Math.cos(deg2rad(coord2.latitude)) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      const d = R * c;
+      return d;
+    }
+
+    function deg2rad(deg) {
+      return deg * (Math.PI / 180);
     }
   </script>
 </body>
